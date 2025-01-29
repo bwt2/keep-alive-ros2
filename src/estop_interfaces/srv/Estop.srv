@@ -1,0 +1,3 @@
+bool start_estop
+---
+bool start_estop_received # respond if request for estop received
