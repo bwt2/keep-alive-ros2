@@ -15,10 +15,10 @@ int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
 
-  std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("estop_server");
+  std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("estop/estop_server");
 
   // makes service available across network
-  rclcpp::Service<estop_interfaces::srv::Estop>::SharedPtr service = node->create_service<estop_interfaces::srv::Estop>("estop_server", &handle_estop_request);
+  rclcpp::Service<estop_interfaces::srv::Estop>::SharedPtr service = node->create_service<estop_interfaces::srv::Estop>("estop_estop_server", &handle_estop_request);
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Ready to respond to Estop calls.");
 
