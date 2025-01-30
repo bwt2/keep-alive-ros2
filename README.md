@@ -32,6 +32,14 @@ docker compose run --rm listener
 docker compose run --rm estop_server
 ```
 
+To stop any of the containers,
+
+```bash
+docker compose stop talker
+docker compose stop listener
+docker compose stop estop_server
+```
+
 To use the docker container as a shell containing all the repositories' (built) code,
 
 ```bash

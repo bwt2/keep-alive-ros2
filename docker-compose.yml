@@ -4,38 +4,18 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ros2 run estop estop_server
-    networks:
-      - estop
     container_name: estop
   talker:
     build:
       context: .
       dockerfile: Dockerfile
     command: ros2 run keep-alive-estop talker_node
-    networks:
-      - estop-talker
     container_name: keep-alive-estop-talker
   listener:
     build:
       context: .
       dockerfile: Dockerfile
     command: ros2 run keep-alive-estop listener_node
-    networks:
-      - estop-listener
     container_name: keep-alive-estop-listener
     depends_on:
       - estop
-
-networks:
-  estop: 
-    name: estop
-    external:
-      name: estop-listener
-  estop-talker:
-    name: estop-talker
-    external:
-        name: estop-listener
-  estop-listener:
-    name: estop-listener
-    external:
-      name: estop-talker
