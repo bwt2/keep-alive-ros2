@@ -24,6 +24,14 @@ Assuming docker is installed, run the following to launch all executables
 docker compose up
 ```
 
+To run only one executable, do 
+
+```bash
+docker compose run --rm talker
+docker compose run --rm listener
+docker compose run --rm estop_server
+```
+
 To use the docker container as a shell containing all the repositories' (built) code,
 
 ```bash
