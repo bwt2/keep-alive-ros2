@@ -1,5 +1,5 @@
 ## About
-Beta test for keep-alive estop mechanism for SIRI.
+ROS 2 snippet, requests estop service if listener doesn't receive any topic updates from talker after a certain timeout. Beta test for keep-alive estop mechanism for SIRI.
 
 ## Manual setup
 Assuming `ros-humble-desktop` is installed, run:
