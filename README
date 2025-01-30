@@ -1,1 +1,26 @@
+## About
 Beta test for keep-alive estop mechanism for SIRI.
+
+## Manual setup
+Assuming `ros-humble-desktop` is installed, run:
+
+```bash
+cd keep-alive-test
+source /opt/ros/humble/setup.bash
+colcon build --packages-select keep-alive-estop estop_interfaces estop --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON 
+source install/setup.bash
+```
+Run each executable:
+```bash
+ros2 run estop estop_server
+ros2 run keep-alive-estop talker_node
+ros2 run keep-alive-estop listener_node
+```
+
+## Docker
+Assuming docker is installed, run
+
+```bash
+docker compose up
+```
+

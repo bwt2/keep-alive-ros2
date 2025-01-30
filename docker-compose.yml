@@ -1,0 +1,21 @@
+services:
+  estop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ros2 run estop estop_server
+    container_name: estop
+  talker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ros2 run keep-alive-estop talker_node
+    container_name: keep-alive-estop-talker
+  listener:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ros2 run keep-alive-estop listener_node
+    container_name: keep-alive-estop-listener
+    depends_on:
+      - estop
