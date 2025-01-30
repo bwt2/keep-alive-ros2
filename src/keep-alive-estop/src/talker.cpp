@@ -29,6 +29,7 @@ class Talker: public rclcpp::Node {
                 std::chrono::milliseconds(2500), 
                 std::bind(&Talker::timer_callback, this)
             );
+            RCLCPP_INFO(this->get_logger(), "Base station ready to ping rover.");
         }
 };
 

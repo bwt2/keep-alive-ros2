@@ -82,5 +82,6 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp"
-    }
+    },
+    "cmake.ignoreCMakeListsMissing": true
 }
