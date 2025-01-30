@@ -24,7 +24,10 @@ class Listener : public rclcpp::Node
       double diff = this->now().seconds() - last_ping_.seconds();
       RCLCPP_INFO(this->get_logger(), "Last message was '%f's ago.", diff);
       if (diff > 5)
+      {
+        RCLCPP_INFO(this->get_logger(), "Starting Estop procedure.");
         request_estop();
+      }
     }
 
     void request_estop()
@@ -41,17 +44,28 @@ class Listener : public rclcpp::Node
         RCLCPP_INFO(this->get_logger(), "service not available, waiting again...");
       }
 
-      // send result
+      // send estop request and wait for response
       auto future = client_->async_send_request(request, 
-        [this](rclcpp::Client<estop_interfaces::srv::Estop>::SharedFuture future) {
-          try {
+        [this](const rclcpp::Client<estop_interfaces::srv::Estop>::SharedFuture future){
+          try 
+          {
             auto response = future.get();
-            RCLCPP_INFO(this->get_logger(), "Success: %d", response->start_estop_received);
-          } catch (const std::exception &e) {
+            if (response->start_estop_received)
+            {
+              RCLCPP_INFO(this->get_logger(), "Estop procedure completed successfully.");
+              rclcpp::shutdown();
+            } 
+            else
+            {
+              RCLCPP_INFO(this->get_logger(), "Estop procedure failed.");
+            }
+          } 
+          catch (const std::exception &e)
+          {
             RCLCPP_ERROR(this->get_logger(), "Service call failed: %s", e.what());
-          }
+          }        
         }
-      );
+      ); 
     }
     
   public:
