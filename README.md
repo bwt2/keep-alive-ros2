@@ -29,3 +29,7 @@ To use the docker container as a shell containing all the repositories' (built) 
 ```bash
 docker build -t keep-alive-test . && docker run -it --rm keep-alive-test
 ```
+
+## TODO
+- [] test on different devices
+- [] multi-stage builds
