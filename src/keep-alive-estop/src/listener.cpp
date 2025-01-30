@@ -33,7 +33,6 @@ class Listener : public rclcpp::Node
     void request_estop()
     {
       auto request = std::make_shared<estop_interfaces::srv::Estop::Request>();
-      request->start_estop = true;
 
       // wait for service to be available
       while (!client_->wait_for_service(std::chrono::seconds(1))) {
@@ -50,7 +49,7 @@ class Listener : public rclcpp::Node
           try 
           {
             auto response = future.get();
-            if (response->start_estop_received)
+            if (response)
             {
               RCLCPP_INFO(this->get_logger(), "Estop procedure completed successfully.");
               rclcpp::shutdown();

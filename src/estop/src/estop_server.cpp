@@ -8,12 +8,11 @@ class EstopServer : public rclcpp::Node
   private:
     rclcpp::Service<estop_interfaces::srv::Estop>::SharedPtr service_;
     void handle_estop_request(
-      const std::shared_ptr<estop_interfaces::srv::Estop::Request>  request,
-            std::shared_ptr<estop_interfaces::srv::Estop::Response> response)
+      [[maybe_unused]] const std::shared_ptr<estop_interfaces::srv::Estop::Request>  request ,
+      [[maybe_unused]]       std::shared_ptr<estop_interfaces::srv::Estop::Response> response)
     {      
-      response->start_estop_received = request->start_estop;
-      RCLCPP_INFO(this->get_logger(), "Incoming request     : start estop: [%d]", request->start_estop);
-      RCLCPP_INFO(this->get_logger(), "sending back response: [%d]", response->start_estop_received);
+      RCLCPP_INFO(this->get_logger(), "Starting Estop Service.");
+      RCLCPP_INFO(this->get_logger(), "Finishing Estop Service.");
     }
 
   public:
