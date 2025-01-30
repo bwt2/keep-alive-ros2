@@ -12,7 +12,7 @@ class EstopServer : public rclcpp::Node
             std::shared_ptr<estop_interfaces::srv::Estop::Response> response)
     {      
       response->start_estop_received = request->start_estop;
-      RCLCPP_INFO(this->get_logger(), "Incoming request\nstart estop: %d", request->start_estop);
+      RCLCPP_INFO(this->get_logger(), "Incoming request     : start estop: [%d]", request->start_estop);
       RCLCPP_INFO(this->get_logger(), "sending back response: [%d]", response->start_estop_received);
     }
 
