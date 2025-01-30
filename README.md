@@ -31,5 +31,5 @@ docker build -t keep-alive-test . && docker run -it --rm keep-alive-test
 ```
 
 ## TODO
-- [] test on different devices
-- [] multi-stage builds
+- test on different devices
+- multi-stage builds
