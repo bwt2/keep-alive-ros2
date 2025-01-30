@@ -18,9 +18,15 @@ ros2 run keep-alive-estop listener_node
 ```
 
 ## Docker
-Assuming docker is installed, run
+Assuming docker is installed, run the following to launch all executables
 
 ```bash
 docker compose up
+```
+
+To use the docker container as a shell containing all the repositories' (built) code,
+
+```bash
+docker build -t keep-alive-test . && docker run -it --rm keep-alive-test
 ```
 
