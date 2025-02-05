@@ -1,5 +1,7 @@
 ## About
-ROS 2 snippet, requests estop service if listener doesn't receive any topic updates from talker after a certain timeout. Beta test for keep-alive estop mechanism for Sydney Interplanetary Rover Initiative (SIRI).
+ROS 2 nodes to poll connectivity between base and remote station. Nodes requests estop service if listener doesn't receive any topic updates from talker after a certain timeout. Beta test for keep-alive estop mechanism for Sydney Interplanetary Rover Initiative (SIRI).
+
+![Sample output](docs/image.png)
 
 ## Manual setup
 Assuming `ros-humble-desktop` is installed, run:
