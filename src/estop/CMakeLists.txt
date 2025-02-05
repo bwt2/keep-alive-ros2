@@ -14,6 +14,11 @@ find_package(estop_interfaces REQUIRED)
 add_executable(estop_server src/estop_server.cpp)
 ament_target_dependencies(estop_server rclcpp estop_interfaces)
 
+# add estop/include directory into include path when building estop_server executable
+target_include_directories(estop_server PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
 # let ros2 run find the executable
 install(TARGETS
   estop_server

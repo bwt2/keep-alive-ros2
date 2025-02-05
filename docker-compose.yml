@@ -3,19 +3,25 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - RCUTILS_COLORIZED_OUTPUT=1
     command: ros2 run estop estop_server
     container_name: estop
-  talker:
+  keep-alive-estop-talker:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ros2 run keep-alive-estop talker_node
+    environment:
+      - RCUTILS_COLORIZED_OUTPUT=1
+    command: ros2 run keep_alive_estop keep_alive_estop_talker_node
     container_name: keep-alive-estop-talker
-  listener:
+  keep-alive-estop-listener:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ros2 run keep-alive-estop listener_node
+    environment:
+      - RCUTILS_COLORIZED_OUTPUT=1
+    command: ros2 run keep_alive_estop keep_alive_estop_listener_node
     container_name: keep-alive-estop-listener
     depends_on:
       - estop
