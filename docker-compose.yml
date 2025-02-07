@@ -26,5 +26,3 @@ services:
       - ROS_DOMAIN_ID=1
     command: ros2 run keep_alive_estop keep_alive_estop_listener_node
     container_name: keep-alive-estop-listener
-    depends_on:
-      - estop
