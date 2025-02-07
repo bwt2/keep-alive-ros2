@@ -6,10 +6,7 @@ services:
     environment:
       - RCUTILS_COLORIZED_OUTPUT=1
       - ROS_DOMAIN_ID=1
-    networks:
-      - keep-alive-estop-network
-    ports:
-      - 8000:8000
+    network_mode: host
     command: ros2 run estop estop_server
     container_name: estop
   keep-alive-estop-talker:
@@ -19,10 +16,7 @@ services:
     environment:
       - RCUTILS_COLORIZED_OUTPUT=1
       - ROS_DOMAIN_ID=1
-    networks:
-      - keep-alive-estop-network
-    ports:
-      - 8000:8000
+    network_mode: host
     command: ros2 run keep_alive_estop keep_alive_estop_talker_node
     container_name: keep-alive-estop-talker
   keep-alive-estop-listener:
@@ -32,13 +26,6 @@ services:
     environment:
       - RCUTILS_COLORIZED_OUTPUT=1
       - ROS_DOMAIN_ID=1
-    networks:
-      - keep-alive-estop-network
-    ports:
-      - 8000:8000
+    network_mode: host
     command: ros2 run keep_alive_estop keep_alive_estop_listener_node
     container_name: keep-alive-estop-listener
-
-networks:
-  keep-alive-estop-network:
-    driver: bridge
