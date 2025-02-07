@@ -7,6 +7,8 @@ services:
       - RCUTILS_COLORIZED_OUTPUT=1
     networks:
       - keep-alive-estop-network
+    ports:
+      - 8000
     command: ros2 run estop estop_server
     container_name: estop
   keep-alive-estop-talker:
@@ -17,6 +19,8 @@ services:
       - RCUTILS_COLORIZED_OUTPUT=1
     networks:
       - keep-alive-estop-network
+    ports:
+      - 8000
     command: ros2 run keep_alive_estop keep_alive_estop_talker_node
     container_name: keep-alive-estop-talker
   keep-alive-estop-listener:
@@ -27,6 +31,8 @@ services:
       - RCUTILS_COLORIZED_OUTPUT=1
     networks:
       - keep-alive-estop-network
+    ports:
+      - 8000
     command: ros2 run keep_alive_estop keep_alive_estop_listener_node
     container_name: keep-alive-estop-listener
 
