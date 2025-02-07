@@ -29,10 +29,7 @@ services:
       - keep-alive-estop-network
     command: ros2 run keep_alive_estop keep_alive_estop_listener_node
     container_name: keep-alive-estop-listener
-    depends_on:
-      - estop
 
 networks:
-  default:
-    external:
-      name: keep-alive-estop-network
+  keep-alive-estop-network:
+    driver: bridge
