@@ -48,7 +48,7 @@ docker compose stop keep-alive-estop-listener
 docker compose stop estop
 ```
 
-To use the docker container as a shell containing all the repositories' (built) code,
+To use the docker container to view the currently running docker nodes (e.g. `rqt_graph`),
 
 ```bash
 docker compose run --remove-orphans terminal
