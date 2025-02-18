@@ -26,3 +26,18 @@ services:
       - ROS_DOMAIN_ID=1
     command: ros2 run keep_alive_estop keep_alive_estop_listener_node
     container_name: keep-alive-estop-listener
+  terminal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    environment:
+      - RCUTILS_COLORIZED_OUTPUT=1
+      - ROS_DOMAIN_ID=1
+      - DISPLAY=${DISPLAY} # enable GUI
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw # enable GUI
+    profiles:
+      - terminal
+    container_name: terminal
