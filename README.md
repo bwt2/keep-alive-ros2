@@ -51,7 +51,7 @@ docker compose stop estop
 To use the docker container as a shell containing all the repositories' (built) code,
 
 ```bash
-docker build -t estop-test . && docker run -it --rm estop-test
+docker compose run --remove-orphans terminal
 ```
 
 ## TODO
