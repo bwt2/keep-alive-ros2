@@ -3,7 +3,11 @@
 KeepAliveEstopTalker::KeepAliveEstopTalker() 
     : Node {"keep_alive_estop_talker"}
 {
-    publisher_ = this->create_publisher<std_msgs::msg::String>("keep_alive_estop", 10);
+    auto qos {rclcpp::SystemDefaultsQoS()};
+    qos.keep_last(1);
+    qos.reliable();
+
+    publisher_ = this->create_publisher<std_msgs::msg::String>("keep_alive_estop", qos);
     timer_ = this->create_wall_timer(
         std::chrono::milliseconds(2500), 
         std::bind(&KeepAliveEstopTalker::timer_callback, this)

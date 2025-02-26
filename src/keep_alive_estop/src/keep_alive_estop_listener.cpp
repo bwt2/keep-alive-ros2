@@ -4,12 +4,26 @@ KeepAliveEstopListener::KeepAliveEstopListener()
   : Node {"keep_alive_estop_listener"}
   , timeout_{5}
 {
-  subscription_ = this->create_subscription<std_msgs::msg::String>(
-    "keep_alive_estop", 
-    10, 
-    std::bind(&KeepAliveEstopListener::topic_callback, this, std::placeholders::_1)
-  );
-  client_ = this->create_client<estop_interfaces::srv::Estop>("estop");
+  auto qos {rclcpp::SystemDefaultsQoS()};
+  qos.keep_last(1);
+  qos.reliable();
+
+  rmw_qos_profile_t estop_service_qos {};
+  estop_service_qos.reliability = RMW_QOS_POLICY_RELIABILITY_RELIABLE;
+
+  subscription_ = this->create_subscription<std_msgs::msg::String>("keep_alive_estop", qos, std::bind(&KeepAliveEstopListener::topic_callback, this, std::placeholders::_1));
+  client_ = this->create_client<estop_interfaces::srv::Estop>("estop", estop_service_qos);
+
+  RCLCPP_INFO(this->get_logger(), "Waiting for Keep Alive Talker ...");
+
+  rclcpp::WaitSet wait_set;
+  wait_set.add_subscription(subscription_);  
+  const auto wait_result {wait_set.wait()};
+  if (wait_result.kind() != rclcpp::WaitResultKind::Ready){ 
+    RCLCPP_ERROR(this->get_logger(), "Keep Alive Talker not found!");
+    return;
+  }
+
   timer_ = this->create_wall_timer(
       std::chrono::seconds(5), 
       std::bind(&KeepAliveEstopListener::timer_callback, this)
