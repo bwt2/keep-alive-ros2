@@ -55,5 +55,4 @@ docker compose run --remove-orphans terminal
 ```
 
 ## TODO
-- test on different devices
 - multi-stage builds
