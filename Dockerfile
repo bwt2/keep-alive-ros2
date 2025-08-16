@@ -1,16 +1,19 @@
-FROM osrf/ros:humble-desktop
-
+FROM osrf/ros:humble-desktop AS builder
 SHELL ["/bin/bash", "-c"]
-
 WORKDIR /app
 
-COPY ./src keep-alive-test/
+COPY ./src ./src
 
-RUN cd keep-alive-test && \
-    source /opt/ros/humble/setup.bash && \
-    colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+RUN source /opt/ros/humble/setup.sh && \
+    colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-COPY ./entrypoint.sh /
+FROM osrf/ros:humble-desktop AS runtime
+SHELL ["/bin/bash", "-c"]
+WORKDIR /app
+
+COPY --from=builder /app/install /app/install
+
+COPY src/scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

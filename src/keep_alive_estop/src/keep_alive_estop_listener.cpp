@@ -14,13 +14,13 @@ KeepAliveEstopListener::KeepAliveEstopListener()
   subscription_ = this->create_subscription<std_msgs::msg::String>("keep_alive_estop", qos, std::bind(&KeepAliveEstopListener::topic_callback, this, std::placeholders::_1));
   client_ = this->create_client<estop_interfaces::srv::Estop>("estop", estop_service_qos);
 
-  RCLCPP_INFO(this->get_logger(), "Waiting for Keep Alive Talker ...");
+  RCLCPP_INFO(this->get_logger(), "Waiting for keep alive talker ...");
 
   rclcpp::WaitSet wait_set;
   wait_set.add_subscription(subscription_);  
   const auto wait_result {wait_set.wait()};
   if (wait_result.kind() != rclcpp::WaitResultKind::Ready){ 
-    RCLCPP_ERROR(this->get_logger(), "Keep Alive Talker not found!");
+    RCLCPP_ERROR(this->get_logger(), "Keep alive talker not found!");
     return;
   }
 

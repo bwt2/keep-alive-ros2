@@ -19,12 +19,6 @@ ros2 run keep_alive_estop keep_alive_estop_talker_node
 ros2 run keep_alive_estop keep_alive_estop_listener_node
 ```
 
-Alt:
-```bash
-colcon build --packages-select keep_alive_estop estop_interfaces estop --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON &&
-source install/setup.bash
-```
-
 ## Docker
 Assuming docker is installed, run the following to launch all executables
 
@@ -51,8 +45,7 @@ docker compose stop estop
 To use the docker container to view the currently running docker nodes (e.g. `rqt_graph`),
 
 ```bash
-docker compose run --remove-orphans terminal
+docker compose up -d terminal
+docker compose exec terminal bash
+docker compose down terminal # don't forget to clean up!
 ```
-
-## TODO
-- multi-stage builds
