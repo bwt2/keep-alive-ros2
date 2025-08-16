@@ -2,8 +2,10 @@
 
 KeepAliveEstopListener::KeepAliveEstopListener()
   : Node {"keep_alive_estop_listener"}
-  , timeout_{5}
 {
+  this->declare_parameter("timeout", 5.0f);
+  timeout_ = this->get_parameter("timeout").as_double();
+
   auto qos {rclcpp::SystemDefaultsQoS()};
   qos.keep_last(1);
   qos.reliable();
